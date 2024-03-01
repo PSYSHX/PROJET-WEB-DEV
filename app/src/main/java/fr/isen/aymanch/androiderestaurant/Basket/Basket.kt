@@ -1,8 +1,8 @@
-package fr.isen.aymanch.androiderestaurant.basket;
+package fr.isen.aymanch.androiderestaurant.Basket
 
 import android.content.Context
-import com.fr.isen.aymanch.androiderestaurant.network.Dish
 import com.google.gson.GsonBuilder
+import fr.isen.aymanch.androiderestaurant.network.Dish
 
 class Basket {
     var items: MutableList<BasketItem> = mutableListOf()
