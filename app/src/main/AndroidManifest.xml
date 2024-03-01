@@ -13,7 +13,13 @@
         android:theme="@style/Theme.AndroidERestaurant"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AndroidERestaurant">
@@ -24,5 +30,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

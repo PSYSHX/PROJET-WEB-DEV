@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="Entrée">Entrée</string>
+    <string name="Entrées">Entrées</string>
     <string name="Plats">Plats</string>
-    <string name="Dessert">Dessert</string>
-
+    <string name="Desserts">Dessert</string>
+    <string name="menu_starter">Entrées</string>
+    <string name="menu_main">Plats</string>
+    <string name="menu_dessert">Dessert</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>
