@@ -78,9 +78,11 @@ class HomeActivity : ComponentActivity(), MenuInterface {
 
     override fun dishPressed(dishType: DishType) {
         Intent(this, MenuActivity::class.java).apply {
+            putExtra("dishType", dishType.name) // Pass the dish type as an extra
             startActivity(this)
         }
     }
+
 
     override fun onPause() {
         Log.d("lifeCycle", "Home Activity - OnPause")

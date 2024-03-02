@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -46,16 +47,24 @@ import fr.isen.aymanch.androiderestaurant.network.MenuResult
 import fr.isen.aymanch.androiderestaurant.network.NetworkConstants
 import org.json.JSONObject
 
-class MenuActivity : ComponentActivity() {
+class MenuActivity : ComponentActivity(), MenuInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val type = (intent.getSerializableExtra(CATEGROY_EXTRA_KEY) as? DishType) ?: DishType.STARTER
+        // Retrieve the dish type from the intent
+        val dishTypeName = intent.getStringExtra("dishType")
+        val type = DishType.valueOf(dishTypeName ?: DishType.STARTER.name)
 
         setContent {
-            MenuView(type)
+            MenuView(type, this)
         }
         Log.d("lifeCycle", "Menu Activity - OnCreate")
+    }
+
+    override fun dishPressed(dishType: DishType) {
+        val intent = Intent(this, MenuActivity::class.java)
+        intent.putExtra(MenuActivity.CATEGROY_EXTRA_KEY, dishType)
+        startActivity(intent)
     }
 
     override fun onPause() {
@@ -80,7 +89,7 @@ class MenuActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuView(type: DishType) {
+fun MenuView(type: DishType, menuActivity: MenuActivity) {
     val category = remember {
         mutableStateOf<Category?>(null)
     }
@@ -165,4 +174,9 @@ fun postData(type: DishType, category: MutableState<Category?>) {
 
     queue.add(request)
 
+    @Composable fun CustomButton(type: DishType, menu: MenuInterface) {
+        TextButton(onClick = { menu.dishPressed(type) }) {
+            Text(type.title())
+        }
+    }
 }
