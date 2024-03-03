@@ -52,7 +52,7 @@ class MenuActivity : ComponentActivity(), MenuInterface {
         super.onCreate(savedInstanceState)
 
         // Retrieve the dish type from the intent
-        val dishTypeName = intent.getStringExtra("dishType")
+        val dishTypeName = intent.getStringExtra(MenuActivity.CATEGROY_EXTRA_KEY)
         val type = DishType.valueOf(dishTypeName ?: DishType.STARTER.name)
 
         setContent {
@@ -93,6 +93,9 @@ fun MenuView(type: DishType, menuActivity: MenuActivity) {
     val category = remember {
         mutableStateOf<Category?>(null)
     }
+
+    // Removed postData function from here
+
     Column(Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
         TopAppBar({
@@ -106,10 +109,13 @@ fun MenuView(type: DishType, menuActivity: MenuActivity) {
             }
         }
     }
+
+    // Moved postData function call here
     postData(type, category)
 }
 
-@Composable fun dishRow(dish: Dish) {
+@Composable
+fun dishRow(dish: Dish) {
     val context = LocalContext.current
     Card(border =  BorderStroke(1.dp, Color.Black),
         modifier = Modifier
@@ -150,7 +156,7 @@ fun MenuView(type: DishType, menuActivity: MenuActivity) {
 
 @Composable
 fun postData(type: DishType, category: MutableState<Category?>) {
-    val currentCategory = type.title()
+val currentCategory = type.title()
     val context = LocalContext.current
     val queue = Volley.newRequestQueue(context)
 

@@ -78,7 +78,7 @@ class HomeActivity : ComponentActivity(), MenuInterface {
 
     override fun dishPressed(dishType: DishType) {
         Intent(this, MenuActivity::class.java).apply {
-            putExtra("dishType", dishType.name) // Pass the dish type as an extra
+            putExtra(MenuActivity.CATEGROY_EXTRA_KEY, dishType.name) // Use the constant for the extra key
             startActivity(this)
         }
     }
