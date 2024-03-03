@@ -44,14 +44,14 @@ import androidx.compose.ui.unit.sp
 import fr.isen.aymanch.androiderestaurant.ui.theme.AndroidERestaurantTheme
 
 enum class DishType {
-    STARTER, MAIN, DESSERT;
+    STARTER, MAIN, DESSERTS;
 
     @Composable
     fun title(): String {
         return when (this) {
             STARTER -> stringResource(id = R.string.menu_starter)
             MAIN -> stringResource(id = R.string.menu_main)
-            DESSERT -> stringResource(id = R.string.menu_dessert)
+            DESSERTS -> stringResource(id = R.string.menu_desserts)
         }
     }
 }
@@ -203,7 +203,7 @@ fun getLogoResId(dishType: DishType): Int {
     return when (dishType) {
         DishType.STARTER -> R.drawable.ent
         DishType.MAIN -> R.drawable.pl
-        DishType.DESSERT -> R.drawable.des
+        DishType.DESSERTS -> R.drawable.des
     }
 }
 

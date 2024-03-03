@@ -5,7 +5,7 @@
     <string name="Desserts">Dessert</string>
     <string name="menu_starter">Entrées</string>
     <string name="menu_main">Plats</string>
-    <string name="menu_dessert">Dessert</string>
+    <string name="menu_desserts">Desserts</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_detail">DetailActivity</string>
 </resources>

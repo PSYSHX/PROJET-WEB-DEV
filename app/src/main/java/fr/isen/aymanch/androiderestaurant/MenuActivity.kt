@@ -158,7 +158,7 @@ fun dishRow(dish: Dish) {
 
 @Composable
 fun postData(type: DishType, category: MutableState<Category?>) {
-val currentCategory = type.title()
+    val currentCategory = type.title()
     val context = LocalContext.current
     val queue = Volley.newRequestQueue(context)
 
@@ -172,8 +172,18 @@ val currentCategory = type.title()
         { response ->
             Log.d("request", response.toString(2))
             val result = GsonBuilder().create().fromJson(response.toString(), MenuResult::class.java)
-            val filteredResult = result.data.first { categroy -> categroy.name == currentCategory }
-            category.value = filteredResult
+
+            // Use firstOrNull to avoid NoSuchElementException
+            val filteredResult = result.data.firstOrNull { category -> category.name == currentCategory }
+
+            if (filteredResult != null) {
+                category.value = filteredResult
+            } else {
+                // Handle the case where no matching element is found, for example:
+                Log.e("postData", "No matching category found for $currentCategory")
+                category.value = null // Set a default value (null in this case)
+                // You might want to set a different default value or show an error message.
+            }
         },
         {
             Log.e("request", it.toString())
@@ -181,10 +191,12 @@ val currentCategory = type.title()
     )
 
     queue.add(request)
+}
+
+
 
     @Composable fun CustomButton(type: DishType, menu: MenuInterface) {
         TextButton(onClick = { menu.dishPressed(type) }) {
             Text(type.title())
         }
     }
-}
