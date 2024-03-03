@@ -59,6 +59,8 @@ class MenuActivity : ComponentActivity(), MenuInterface {
             MenuView(type, this)
         }
         Log.d("lifeCycle", "Menu Activity - OnCreate")
+        Log.d("MenuActivity", "Dish Type Name: $dishTypeName")
+        Log.d("MenuActivity", "onCreate")
     }
 
     override fun dishPressed(dishType: DishType) {
