@@ -103,17 +103,62 @@ fun MenuView(type: DishType, menuActivity: MenuActivity) {
         TopAppBar({
             Text(type.title())
         })
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            category.value?.let {
-                items(it.items) {
-                    dishRow(it)
-                }
-            }
+
+        // Check the category type and display the corresponding section
+        when (type) {
+            DishType.STARTER -> DessertSection(category)
+            DishType.MAIN -> PlatSection(category)
+            DishType.DESSERTS -> EntreeSection(category)
         }
     }
 
     // Moved postData function call here
     postData(type, category)
+}
+
+@Composable
+fun DessertSection(category: MutableState<Category?>) {
+    // Display the Dessert section
+    category.value?.let { selectedCategory ->
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            items(selectedCategory.items) { dish ->
+                dishRow(dish)
+            }
+        }
+    } ?: run {
+        // Handle the case where category.value is null (no matching category found)
+        Text("No matching category found for Desserts")
+    }
+}
+
+@Composable
+fun PlatSection(category: MutableState<Category?>) {
+    // Display the Plat section
+    category.value?.let { selectedCategory ->
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            items(selectedCategory.items) { dish ->
+                dishRow(dish)
+            }
+        }
+    } ?: run {
+        // Handle the case where category.value is null (no matching category found)
+        Text("No matching category found for Plats")
+    }
+}
+
+@Composable
+fun EntreeSection(category: MutableState<Category?>) {
+    // Display the Entree section
+    category.value?.let { selectedCategory ->
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            items(selectedCategory.items) { dish ->
+                dishRow(dish)
+            }
+        }
+    } ?: run {
+        // Handle the case where category.value is null (no matching category found)
+        Text("No matching category found for Entrees")
+    }
 }
 
 @Composable
